@@ -252,14 +252,20 @@ agregarValorVenta();
 /*4) Crear la función ventasSucursal(sucursal), que obtiene las ventas totales realizadas 
 por una sucursal sin límite de fecha.*/
 
-const ventasSucursal = (sucursal) => {
-  let ventasXsucursal = 0;
+const filtroSucursal = (sucursal,ventas) =>{
+  const ventasFiltradas = [];
   for (venta of ventas) {
     if (venta.sucursal === sucursal) {
-      ventasXsucursal = ventasXsucursal + venta.valorVenta;
-    }   
+      ventasFiltradas.push(venta);
+    }
   }
-  return ventasXsucursal
+  return ventasFiltradas;
+}
+
+const ventasSucursal = (sucursal) => {
+  let ventasLocal = filtroSucursal(sucursal, ventas);
+  let total = totalVendido(ventasLocal);
+  return total;
 }
 console.log( ventasSucursal("Centro") ); // 4195
 
@@ -285,15 +291,7 @@ No cantidad de ventas, sino importe total de las ventas.
 El importe de una venta es el que indica la función precioMaquina. 
 El mes es un número entero que va desde el 1 (enero) hasta el 12 (diciembre).*/
 
-const filtroSucursal = (sucursal,ventas) =>{
-  const ventasFiltradas = [];
-  for (venta of ventas) {
-    if (venta.sucursal === sucursal) {
-      ventasFiltradas.push(venta);
-    }
-  }
-  return ventasFiltradas;
-}
+
 
 const sucursalDelMes = (mes, anio) =>{
   let sucursalMes = 0;
